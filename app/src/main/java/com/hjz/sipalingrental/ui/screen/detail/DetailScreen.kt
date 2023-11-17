@@ -123,15 +123,6 @@ fun DetailContent(
                     .clickable { onBackClick() },
                 tint = Color.White
             )
-            Icon(
-                imageVector = Icons.Outlined.Favorite ,
-                contentDescription = null,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-                    .clickable { },
-                tint = Color.Red
-            )
         }
         Column (
             modifier = modifier

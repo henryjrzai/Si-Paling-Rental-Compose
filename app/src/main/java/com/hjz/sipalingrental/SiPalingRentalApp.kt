@@ -16,7 +16,6 @@ import androidx.navigation.navArgument
 import com.hjz.sipalingrental.ui.components.BottomBar
 import com.hjz.sipalingrental.ui.navigation.Screen
 import com.hjz.sipalingrental.ui.screen.detail.DetailScreen
-import com.hjz.sipalingrental.ui.screen.favorite.FavoriteScreen
 import com.hjz.sipalingrental.ui.screen.home.HomeScreen
 import com.hjz.sipalingrental.ui.screen.profile.ProfileScreen
 import com.hjz.sipalingrental.ui.theme.SiPalingRentalTheme
@@ -48,9 +47,6 @@ fun SiPalingRentalApp(
                         navController.navigate(Screen.DetailScreen.createRoute(it))
                     }
                 )
-            }
-            composable(Screen.Favorite.route) {
-                FavoriteScreen()
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
