@@ -3,14 +3,19 @@ package com.hjz.sipalingrental
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.hjz.sipalingrental.ui.components.BottomBar
 import com.hjz.sipalingrental.ui.navigation.Screen
+import com.hjz.sipalingrental.ui.screen.detail.DetailScreen
 import com.hjz.sipalingrental.ui.screen.favorite.FavoriteScreen
 import com.hjz.sipalingrental.ui.screen.home.HomeScreen
 import com.hjz.sipalingrental.ui.screen.profile.ProfileScreen
@@ -21,10 +26,14 @@ fun SiPalingRentalApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
-    //HomeScreen()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold (
         bottomBar = {
-            BottomBar(navController)
+            if (currentRoute != Screen.DetailScreen.route) {
+                BottomBar(navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
@@ -34,13 +43,29 @@ fun SiPalingRentalApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    navigateToDetail = {
+                        navController.navigate(Screen.DetailScreen.createRoute(it))
+                    }
+                )
             }
             composable(Screen.Favorite.route) {
                 FavoriteScreen()
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+            composable(
+                route = Screen.DetailScreen.route,
+                arguments = listOf(navArgument("id"){ type = NavType.StringType})
+            ) {
+                val id = it.arguments?.getString("id") ?: ""
+                DetailScreen(
+                    id = id,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                )
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -25,6 +26,7 @@ fun BottomBar(
     modifier: Modifier = Modifier
 ) {
     NavigationBar (
+        contentColor = MaterialTheme.colorScheme.primary,
         modifier = modifier,
     ) {
         val navigationItems = listOf(
@@ -50,13 +52,6 @@ fun BottomBar(
 
         navigationItems.map { item ->
             NavigationBarItem(
-                icon = {
-                    Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.title
-                    )
-                },
-                label = { Text(item.title) },
                 selected = currentRoute == item.screen.route,
                 onClick = {
                     navController.navigate(item.screen.route) {
@@ -66,8 +61,15 @@ fun BottomBar(
                         restoreState = true
                         launchSingleTop = true
                     }
-
-                }
+                },
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                },
+                label = { Text(item.title) },
             )
         }
     }

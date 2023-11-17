@@ -17,7 +17,7 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = BeautyBush,
-    onPrimary = BlackWhite,
+    onPrimary = PortGore,
     secondary = BlackWhite,
     tertiary = BeautyBush,
     background = PortGore

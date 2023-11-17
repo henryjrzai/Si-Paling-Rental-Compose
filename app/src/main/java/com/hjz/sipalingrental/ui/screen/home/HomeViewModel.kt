@@ -5,11 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hjz.sipalingrental.data.RentalCarRepository
+import com.hjz.sipalingrental.model.OrderRentCar
 import com.hjz.sipalingrental.model.RentalCar
+import com.hjz.sipalingrental.ui.common.UiState
+import com.hjz.sipalingrental.ui.screen.detail.DetailScreenViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class HomeViewModel (private val repository : RentalCarRepository) : ViewModel() {
+    private val _uiState: MutableStateFlow<UiState<List<OrderRentCar>>> = MutableStateFlow(UiState.Loading)
+    val uiState: StateFlow<UiState<List<OrderRentCar>>>
+        get() = _uiState
+
     private val _groupedRentalCars = MutableStateFlow(
         repository.getRentalCar()
             .sortedBy { it.rentalName }
@@ -35,6 +42,9 @@ class ViewModelFactory(private val repository: RentalCarRepository) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(DetailScreenViewModel::class.java)) {
+            return DetailScreenViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

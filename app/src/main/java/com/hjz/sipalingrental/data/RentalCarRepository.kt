@@ -20,6 +20,12 @@ class RentalCarRepository {
 
     fun getRentCar () : Flow<List<OrderRentCar>> = flowOf(rentCar)
 
+    fun getOrderRentCar (id : String) : OrderRentCar {
+        return rentCar.first {
+            it.rentCar.id == id
+        }
+    }
+
     fun getRentalCar() : List<RentalCar> {
         return RentalCarData.rental
     }
