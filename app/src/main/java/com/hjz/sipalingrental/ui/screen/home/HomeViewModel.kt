@@ -1,4 +1,4 @@
-package com.hjz.sipalingrental.ui.home
+package com.hjz.sipalingrental.ui.screen.home
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
