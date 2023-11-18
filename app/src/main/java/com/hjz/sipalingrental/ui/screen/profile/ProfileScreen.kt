@@ -59,7 +59,10 @@ fun ProfileScreen(
         Text (
             text = "Software Engineer Enthusiast",
             fontStyle = FontStyle.Italic,
-
+        )
+        Text (
+            text = "hjuniorzai@gmail.com",
+            fontSize = 16.sp
         )
     }
 }
